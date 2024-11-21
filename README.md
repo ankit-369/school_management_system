@@ -9,14 +9,14 @@ Follow these steps to set up the project:
 Run the following command to clone the repository from GitHub:
 
 ```bash
-git clone <github_repository_url>
+git clone https://github.com/ankit-369/school_management_system.git
 ```
 
 ### 2. Install dependencies:
 Navigate to the project folder and install the required dependencies using npm:
 
 ```bash
-cd <project_folder_name>
+cd school_management_system
 npm install
 ```
 
@@ -47,6 +47,7 @@ To obtain a JWT token, follow the steps below:
 1. **Send a `POST` request to authenticate as an admin:**
 
    - **Endpoint:** `http://localhost:5000/api/v1/admin/login`
+   - **Methode:** `POST`
    - **Request Body Example:**
      ```json
      {
