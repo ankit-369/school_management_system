@@ -5,8 +5,10 @@ const multer = require("multer");
 const fs = require("fs/promises");
 const { teachers } = require("../db");
 const cloudinary = require("cloudinary").v2;
-const bcrypt = require("bcrypt");
 require("dotenv").config(); // Load environment variables
+
+const {authenticateAdmin} = require("./middleware");
+
 
 // Configuration
 cloudinary.config({
@@ -74,7 +76,7 @@ router.get("/id/:id", async (req, res) => {
 
 
 // Route for updating teachers data
-router.put("/update/:id", upload.single("image"), async (req, res) => {
+router.put("/update/:id",authenticateAdmin, upload.single("image"), async (req, res) => {
     const teacherId = req.params.id;
     try {
         const teacher = await teachers.findById(teacherId);
@@ -136,7 +138,7 @@ router.put("/update/:id", upload.single("image"), async (req, res) => {
 
 
 // Route to delete teacher by id
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", authenticateAdmin,async (req, res) => {
     const teacherId = req.params.id;
 
     try {
@@ -169,7 +171,7 @@ const teacher_input = z.object({
 });
 
 //  Route to add new teacher
-router.post("/addteacher", upload.single("image"), async (req, res) => {
+router.post("/addteacher",authenticateAdmin, upload.single("image"), async (req, res) => {
     try {
         const validatedata = teacher_input.parse({
             name: req.body.name,

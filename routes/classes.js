@@ -3,6 +3,7 @@ const router = express.Router()
 const mongoose = require('mongoose');
 const { classes , teachers } = require('../db'); // Assuming you have this import for the class model
 
+const {authenticateAdmin} = require("./middleware");
 
 const app = express();
 
@@ -37,7 +38,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.put("/update/:id",async (req, res) => {
+router.put("/update/:id",authenticateAdmin,async (req, res) => {
     const classesid = req.params.id;
     try {
         const single_class = await classes.findById(classesid);
@@ -96,7 +97,7 @@ router.put("/update/:id",async (req, res) => {
 
 });
 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id",authenticateAdmin, async (req, res) => {
     const classId = req.params.id;
 
     try {
@@ -115,7 +116,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 });
 
-router.post('/create',async(req,res)=>{
+router.post('/create',authenticateAdmin,async(req,res)=>{
 
     try {
         const { name, studentCount, teacherId } = req.body;

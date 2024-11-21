@@ -8,6 +8,8 @@ const cloudinary = require("cloudinary").v2;
 const bcrypt = require("bcrypt");
 require("dotenv").config(); // Load environment variables
 
+const {authenticateAdmin} = require("./middleware");
+
 // Configuration
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -69,8 +71,8 @@ router.get("/id/:id", async (req, res) => {
 });
 
 
-// Route for updating student data
-router.put("/update/:id", upload.single("image"), async (req, res) => {
+// Route for update student data
+router.put("/update/:id",authenticateAdmin, upload.single("image"), async (req, res) => {
     const studentId = req.params.id;
     try {
         const student = await students.findById(studentId);
@@ -137,8 +139,8 @@ router.put("/update/:id", upload.single("image"), async (req, res) => {
 });
 
 
-// Route to delete student by id (soft delete)
-router.delete("/delete/:id", async (req, res) => {
+// Route to delete student by id )
+router.delete("/delete/:id", authenticateAdmin,async (req, res) => {
     const studentId = req.params.id;
 
     try {
@@ -162,7 +164,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 
 // Route to add a new student
-router.post("/addstudent", upload.single("image"), async (req, res) => {
+router.post("/addstudent",authenticateAdmin, upload.single("image"), async (req, res) => {
     try {
         const validatedata = z.object({
             name: z.string().nonempty("Name is required"),

@@ -1,6 +1,89 @@
 # 🏫 School Management System 
 
-## 👨 Teacher Management API Endpoints
+
+# Project Setup
+
+Follow these steps to set up the project:
+
+### 1. Clone the repository:
+Run the following command to clone the repository from GitHub:
+
+```bash
+git clone <github_repository_url>
+```
+
+### 2. Install dependencies:
+Navigate to the project folder and install the required dependencies using npm:
+
+```bash
+cd <project_folder_name>
+npm install
+```
+
+### 3. Start the application:
+Run the application using the following command:
+
+```bash
+node index.js
+```
+
+
+Your application should now be running, and you can access it at `http://localhost:5000` (or the port defined in your `index.js` file).
+
+---
+
+Here JWT verification has been added to the `POST`, `PUT`, and `DELETE` routes of `student`, `teacher`, and `class`:
+
+
+## Overview
+
+JWT verification has been added to the `POST`, `PUT`, and `DELETE` routes for `students`, `teachers`, and `classes`. To interact with these routes, you must first authenticate by logging in as an admin and obtaining a JWT token.
+
+
+## Authentication
+
+To obtain a JWT token, follow the steps below:
+
+1. **Send a `POST` request to authenticate as an admin:**
+
+   - **Endpoint:** `http://localhost:5000/api/v1/admin/login`
+   - **Request Body Example:**
+     ```json
+     {
+       "email": "your_email@example.com",
+       "password": "your_password"
+     }
+     ```
+
+2. **Response Example:**
+   ```json
+   {
+     "message": "Login successful.",
+     "token": "your_generated_jwt_token"
+   }
+   ```
+
+3. **Copy the `token` from the response.**
+
+
+## Using the JWT Token
+
+To access the routes for managing `students`, `teachers`, and `classes`, you must include the JWT token in the request header.
+
+- **Key:** `Authorization`
+- **Value:** `Bearer <your_generated_jwt_token>`
+
+**Note:** Do not include the inverted commas around the token.
+
+
+### Important Notes:
+
+- Make sure to include the JWT token in the request header for the routes that require authentication (`POST`, `PUT`, `DELETE`).
+- Ensure the token is passed with the `Bearer` prefix, followed by the token string, **without** inverted commas.
+  
+
+
+## 📝 Teacher Management API Endpoints
 
 ### 1. Add a New Teacher
 - **Endpoint:** `POST /api/v1/teacher/addteacher`
@@ -21,6 +104,7 @@
   - `http://localhost:5000/api/v1/teacher?page=2`
   - `http://localhost:5000/api/v1/teacher?page=1&limit=5`
 
+---
 
 ### 3. Get Teacher by ID
 - **Endpoint:** `GET /api/v1/teacher/id/{teacher_id}`
@@ -29,6 +113,7 @@
 - **Example Request:**  
   - `http://localhost:5000/api/v1/teacher/id/673f0e8114ac5adc1d590aff`
 
+---
 
 ### 4. Update Teacher Information
 - **Endpoint:** `PUT /api/v1/teacher/update/{teacher_id}`
@@ -42,6 +127,7 @@
 - **Example Request:**  
   - `http://localhost:5000/api/v1/teacher/update/673f10ae4ffd3a771c8a6aa1`
 
+---
 
 ### 5. Soft Delete Teacher
 - **Endpoint:** `DELETE /api/v1/teacher/delete/{teacher_id}`
