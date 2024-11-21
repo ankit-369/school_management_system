@@ -152,10 +152,10 @@ router.delete("/delete/:id", async (req, res) => {
         // Save the teacher with the updated 'deleted' status
         await teacher.save();
 
-        res.json({ msg: "Teacher soft deleted successfully", teacher });
+        res.json({ msg: "Teacher deleted successfully", teacher });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ msg: "Error soft deleting teacher" });
+        res.status(500).json({ msg: "Error deleting teacher" });
     }
 
 });
