@@ -41,6 +41,10 @@ const student_schema = new Schema({
         required: [true, 'Class reference is required']
       },
     profileImageUrl : String,
+    deleted: {
+      type: Boolean,
+      default: false, // Initially, the teacher is not deleted
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -86,7 +90,7 @@ const classes_schema = new Schema({
             // Optional: Validate class name format (e.g., 'Grade 10A')
             return /^(Grade|Class)\s\d+[A-Z]?$/.test(v);
           },
-          message: 'Class name should be in format like "Grade 10A" or "Class 12B"'
+          message: 'Class name should be in format like "Grade 10A" or "Class 8B"'
         }
     },
     teacherId: {
