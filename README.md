@@ -52,3 +52,4 @@
   - `id`: Unique teacher identifier (String)
 - **Example Request:**  
   - `http://localhost:5000/api/v1/teacher/delete/673f10ae4ffd3a771c8a6aa1`# school_management_system
+# school_management_system
